@@ -35,7 +35,7 @@ def dataSoft():
     print(request.method)
     if request.method == 'GET':
         global GlobaldataSoft
-        data = str(ser.readline()[:-2].decode('UTF-8'))
+        data = str(ser.readline()[2:-5].decode('UTF-8'))
         print(data)
         return data
     elif request.method == 'POST':
