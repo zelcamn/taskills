@@ -1,6 +1,9 @@
 from flask import Flask, request
 import requests
+import serial
 
+
+ser = serial.Serial('COM4', 9600)
 app = Flask(__name__)
 GlobaldataArd = ''
 GlobaldataSoft = ''
@@ -24,7 +27,7 @@ def DataArduino():
         global GlobaldataArd
         GlobaldataArd = request.args
         print(request.args)
-        return "success"
+        return request.args
 
 
 @app.route('/dataSoft', methods=['POST', 'GET'])
@@ -32,8 +35,8 @@ def dataSoft():
     print(request.method)
     if request.method == 'GET':
         global GlobaldataSoft
-        data = GlobaldataArd
-        print(GlobaldataArd)
+        data = str(ser.readline()[:-2].decode('UTF-8'))
+        print(data)
         return data
     elif request.method == 'POST':
         global GlobaldataSoft
