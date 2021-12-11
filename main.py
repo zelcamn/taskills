@@ -10,7 +10,7 @@ GlobaldataSoft = ''
 @app.route('/index')
 def index():
     print(request.method)
-    return "Привет, Яндекс!"
+    return "Привет"
 
 
 @app.route('/dataArduino/', methods=['POST', 'GET'])
@@ -18,11 +18,12 @@ def DataArduino():
     if request.method == 'GET':
         global GlobaldataSoft
         data = GlobaldataSoft
+        print(GlobaldataSoft)
         return data
     elif request.method == 'POST':
         global GlobaldataArd
-        GlobaldataArd = request.get_data()
-        print(request.get_data())
+        GlobaldataArd = request.args
+        print(request.args)
         return "success"
 
 
@@ -32,22 +33,13 @@ def dataSoft():
     if request.method == 'GET':
         global GlobaldataSoft
         data = GlobaldataArd
-        # return "test"
+        print(GlobaldataArd)
         return data
     elif request.method == 'POST':
         global GlobaldataSoft
         GlobaldataSoft = request.get_data()
         print(request.get_data())
         return "success"
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    print(request.method)
-    if request.method == 'POST':
-        print("post")
-    else:
-        print("get")
 
 
 if __name__ == '__main__':
